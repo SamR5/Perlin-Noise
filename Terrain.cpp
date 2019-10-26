@@ -20,16 +20,27 @@ Perlin Noise Terrain
 #define CELL_SIZE 3
 
 
+void generate_2D_noise();
+void offset_grid();
+void update_min_max();
+double to_scale(double n);
+void draw_grid();
+
+void display_callback();
+void reshape_callback(int width, int height);
+void timer_callback(int);
+
 
 
 double grid[HEIGHT][WIDTH];
+float gridVal[HEIGHT][WIDTH]; // scaled values of grid
 
 // to simulate landscape scrolling
 int xOff(1); // x offset at each step
 int yOff(0); // y offset at each step
 int step(std::max(HEIGHT, WIDTH)); // current step
 
-double persistence = 1.2; // useless after 1.5
+double persistence = 1.2;
 double deltaPerisistance = 0.01;
 int maxOctave = 8;
 int minOctave = 2;
@@ -93,8 +104,6 @@ int coeff(10);
 double to_scale(double n) {
     return coeff * (n - mini) / (maxi-mini);
 }
-
-float gridVal[HEIGHT][WIDTH];
 
 void draw_grid() {
     double val;
@@ -165,7 +174,7 @@ int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowPosition(15, 15); // optional
     glutInitWindowSize(WIDTH*CELL_SIZE, HEIGHT*CELL_SIZE);
-    glutCreateWindow("Perlin Noise");
+    glutCreateWindow("Perlin Noise Terrain");
     glutDisplayFunc(display_callback);
     glutReshapeFunc(reshape_callback);
     glutTimerFunc(1000/FPS, timer_callback, 0);

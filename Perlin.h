@@ -1,12 +1,10 @@
 #ifndef PERLIN_H
 #define PERLIN_H
 
+
 const int TOTAL_PRIMES = 10;
 
-#include "Perlin.h"
-
-
-extern double persistence; // useless after 1.5
+extern double persistence;
 extern double deltaPerisistance;
 extern int maxOctave;
 extern int minOctave;

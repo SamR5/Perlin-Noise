@@ -24,16 +24,12 @@ Perlin Noise Curve
 #define FPS 50
 #define CELL_SIZE 1
 
-double persistence = 0.2; // useless after 1.5
-double deltaPerisistance = 0.01;
-int maxOctave = 8;
-int minOctave = 3;
-int primeIndex = 5;
 
 void generate_1D_noise();
 void update_parameter(int val);
 void update_min_max();
 double to_scale(double n);
+void parameter_color(int value);
 void draw_grid();
 void parameter_color(int value);
 void draw_parameters();
@@ -45,7 +41,7 @@ void keyboard_special_callback(int special, int x, int y);
 
 double grid[WIDTH];
 
-int selectionRow(0);
+int selectionRow(0); // currently selected row
 
 // to simulate landscape scrolling
 int xOff(2); // x offset at each step
@@ -55,6 +51,12 @@ int step(WIDTH); // current step
 // used to find extrema in the grid
 double mini;
 double maxi;
+
+double persistence = 0.2;
+double deltaPerisistance = 0.01;
+int maxOctave = 8;
+int minOctave = 3;
+int primeIndex = 5;
 
 void generate_1D_noise() {
     int xSign = std::copysign(1, xOff);
@@ -187,13 +189,12 @@ void keyboard_special_callback(int special, int x, int y) {
     }
 }
 
-
 int main(int argc, char **argv) {
     glutInit(&argc, argv); // initialize
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowPosition(15, 15); // optional
     glutInitWindowSize(WIDTH*CELL_SIZE, HEIGHT*CELL_SIZE);
-    glutCreateWindow("Perlin Noise 1D");
+    glutCreateWindow("Perlin Noise Curve");
     glutDisplayFunc(display_callback);
     glutReshapeFunc(reshape_callback);
     glutTimerFunc(1000/FPS, timer_callback, 0);

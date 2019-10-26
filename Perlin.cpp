@@ -1,4 +1,3 @@
-
 /*
 
 Perlin noise functions
@@ -6,16 +5,16 @@ Perlin noise functions
 see http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
 
 */
+
+
 #include "Perlin.h"
 #include <cmath>
 
-/*
-double persistence = 0.2; // useless after 1.5
-double deltaPerisistance = 0.01;
-int maxOctave = 8;
-int minOctave = 3;
-int primeIndex = 5;
-*/
+/*double persistence;
+double deltaPerisistance;
+int maxOctave;
+int minOctave;
+int primeIndex;*/
 
 const int primes[TOTAL_PRIMES][3] = {
   { 995615039, 600173719, 701464987 },
