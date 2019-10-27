@@ -2,7 +2,6 @@
 #define PERLIN_H
 
 
-const int TOTAL_PRIMES = 10;
 
 extern double persistence;
 extern double deltaPerisistance;

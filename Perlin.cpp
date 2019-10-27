@@ -10,11 +10,7 @@ see http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
 #include "Perlin.h"
 #include <cmath>
 
-/*double persistence;
-double deltaPerisistance;
-int maxOctave;
-int minOctave;
-int primeIndex;*/
+#define TOTAL_PRIMES 10
 
 const int primes[TOTAL_PRIMES][3] = {
   { 995615039, 600173719, 701464987 },
@@ -76,7 +72,7 @@ double interpolated_noise(int i, double x, double y) {
 
 double noise_value(double x, double y) {
     double total(0);
-    double frequency(pow(2, maxOctave));
+    double frequency(std::pow(2, maxOctave));
     double amplitude(5);
     for (int i=minOctave; i<maxOctave; i++) {
         frequency /= 2;

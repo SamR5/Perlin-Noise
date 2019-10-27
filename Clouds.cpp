@@ -15,8 +15,8 @@ Perlin Noise Clouds
 #include <sstream>
 #include <cmath>
 
-#define WIDTH 300
-#define HEIGHT 300
+#define WIDTH 500
+#define HEIGHT 500
 #define FPS 20
 #define PI 3.1415926
 #define CELL_SIZE 1
@@ -42,7 +42,7 @@ double grid[HEIGHT][WIDTH];
 int selectionRow(0); // currently selected row
 
 double persistence = 0.8;
-double deltaPerisistance = 0.01;
+double deltaPersistence = 0.05;
 int maxOctave = 8;
 int minOctave = 3;
 int primeIndex = 5;
@@ -71,12 +71,13 @@ void generate_2D_noise() {
 
 void update_parameter(int val) {
     switch (selectionRow) {
-        case 0: persistence += val * deltaPerisistance; break;
+        case 0: persistence += val * deltaPersistence; break;
         case 1: maxOctave += val; break;
         case 2: minOctave += val;
     }
     if (minOctave > maxOctave)
         minOctave = maxOctave;
+    generate_2D_noise();
 }
 
 void offset_grid() {
@@ -153,13 +154,16 @@ void draw_parameters() {
 
 void draw_grid() {
     double val;
+    glBegin(GL_POINTS);
     for (int i=0; i<HEIGHT; i++) {
         for (int j=0; j<WIDTH; j++) {
             val = to_scale(grid[i][j]);
             glColor3f(val, val, val);
-            glRecti(i, j, i+CELL_SIZE, j+CELL_SIZE);
+            glVertex2f(i, j);
+            //glRecti(i, j, i+CELL_SIZE, j+CELL_SIZE);
         }
     }
+    glEnd();
 }
 
 void display_callback() {
@@ -197,7 +201,7 @@ void timer_callback(int) {
 
     auto stop(std::chrono::steady_clock::now());
     auto duration(std::chrono::duration_cast<std::chrono::milliseconds>(stop-start));
-    //std::cout << duration.count() << std::endl;
+    // std::cout << duration.count() << std::endl;
     glutTimerFunc(std::abs(1000.0/FPS - duration.count()), timer_callback, 0);
 }
 
