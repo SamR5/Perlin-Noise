@@ -154,6 +154,7 @@ void draw_parameters() {
 
 void draw_grid() {
     double val;
+    glPointSize(CELL_SIZE);
     glBegin(GL_POINTS);
     for (int i=0; i<HEIGHT; i++) {
         for (int j=0; j<WIDTH; j++) {
